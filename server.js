@@ -1,10 +1,12 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+
+const port = process.env.PORT || 3000;
 var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials');
-app.set('view engine', 'hbs' ); //hbs is view engine just like pug
+app.set('view engine', 'hbs' ); 
 app.use((req, res, next) => {
     var now = new Date().toString();
     var log = `${now}:${req.method} ${req.url}`;
@@ -16,11 +18,8 @@ app.use((req, res, next) => {
     });
     next();
 });
-// app.use((req, res, next) => {
-//     res.render('maintenance.hbs');
-// });
 
-app.use(express.static(__dirname + '/public'));  //statically view the page with giving route every time,visit localhost:3000/help.html in browser 
+app.use(express.static(__dirname + '/public'));  
 hbs.registerHelper('getDate', () => {
     return new Date().getFullYear();
 });
@@ -32,17 +31,15 @@ app.get('/', (req, res) => {
     res.render('home.hbs', {
         pageTitle: 'Home Page',
         welcomeMessage: 'Welcome to Home Page',
-
-        // currentYear:new Date().getFullYear()
         
     });
 });
 
 app.get('/about', (req, res) => {
-    // res.send('About page');
+
     res.render('about.hbs', {
         pageTitle:'About Page',
-        // currentYear: new Date().getFullYear()
+
     });
 });
 
@@ -53,5 +50,5 @@ app.get('/bad', (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log('Server is at port 3000')
+    console.log(`Server is at port ${port}`)
 });
