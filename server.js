@@ -27,7 +27,7 @@ hbs.registerHelper('screamIt', (text) => {
     return text.toUpperCase();
 });
 app.get('/', (req, res) => {
-    // res.send('<h1>Hello Express!</h1>');
+    
     res.render('home.hbs', {
         pageTitle: 'Home Page',
         welcomeMessage: 'Welcome to Home Page',
@@ -49,6 +49,6 @@ app.get('/bad', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log(`Server is at port ${port}`)
 });
